@@ -43,13 +43,37 @@ def softmax_loss_naive(W, X, y, reg):
   
   denominator = np.sum(np.exp(scores), 1).reshape(num_train, 1)
 
-  scores -= np.max(scores, 1).reshape(500, 1)  # stablizing
-  dScores = scores / denominator - y_mat
+  # scores -= np.max(scores, 1).reshape(500, 1)  # stablizing
+  dScores = np.exp(scores) / denominator - y_mat
   dW = X.T.dot(dScores)
   dW /= num_train
 
   loss = np.mean(loss) + 0.5 * reg * np.sum(W * W)
   dW += 0.5 * reg * 2 * W
+
+  # num_examples = X.shape[0]
+  # scores = np.dot(X, W) 
+  
+  # # compute the class probabilities
+  # exp_scores = np.exp(scores)
+  # probs = exp_scores / np.sum(exp_scores, axis=1, keepdims=True) # [N x K]
+  
+  # # compute the loss: average cross-entropy loss and regularization
+  # corect_logprobs = -np.log(probs[range(num_examples),y])
+  # data_loss = np.sum(corect_logprobs)/num_examples
+  # reg_loss = 0.5*reg*np.sum(W*W)
+  # loss = data_loss + reg_loss
+  
+  # # compute the gradient on scores
+  # dscores = probs
+  # dscores[range(num_examples),y] -= 1
+  # dscores /= num_examples
+  
+  # # backpropate the gradient to the parameters (W,b)
+  # dW = np.dot(X.T, dscores)
+  # db = np.sum(dscores, axis=0, keepdims=True)
+  
+  # dW += reg*W # regularization gradient
   #############################################################################
   #                          END OF YOUR CODE                                 #
   #############################################################################
