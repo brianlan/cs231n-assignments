@@ -1,4 +1,6 @@
-assignment1/cs231n/datasets
+*/cs231n/datasets
 venv
-assignment1/.idea/
-assignment1/.ipynb_checkpoints/
+*/.idea/
+*/.ipynb_checkpoints/
+*.pyc
+*.pyx
